@@ -7,19 +7,27 @@ defmodule Aoc2019.Day2 do
     |> Enum.with_index
     |> Enum.map(fn {a, b} -> {b, a} end)
     |> Map.new
-    |> start
+    |> startnv
   end
 
-  def start(state) do
-    next(op(%{state | 1 => 12, 2 => 2}, 0))
+  def startnv(state) do
+    Enum.each(0..99, fn noun -> start_noun(state, noun) end)
   end
 
-  def next({:continue, state, index}) do
-    next(op(state, index))
+  def start_noun(state, noun) do
+    Enum.each(0..99, fn verb -> start_verb(state, noun, verb) end)
   end
 
-  def next({:halt, state}) do
-    IO.puts(state[0])
+  def start_verb(state, noun, verb) do
+    next(op(%{state | 1 => noun, 2 => verb}, 0), noun, verb)
+  end
+
+  def next({:continue, state, index}, noun, verb) do
+    next(op(state, index), noun, verb)
+  end
+
+  def next({:halt, state}, noun, verb) do
+    IO.puts("noun: #{noun}, verb: #{verb}, #{state[0]}")
   end
 
   def op(state, position) do
