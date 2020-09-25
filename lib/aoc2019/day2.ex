@@ -11,8 +11,15 @@ defmodule Aoc2019.Day2 do
   end
 
   def start(state) do
-    {:continue, final_state, _index} = op(%{state | 1 => 12, 2 => 2}, 0)
-    IO.inspect(Map.take(final_state, [0, 1, 2, 3]))
+    next(op(%{state | 1 => 12, 2 => 2}, 0))
+  end
+
+  def next({:continue, state, index}) do
+    next(op(state, index))
+  end
+
+  def next({:halt, state}) do
+    IO.puts(state[0])
   end
 
   def op(state, position) do
