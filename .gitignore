@@ -25,3 +25,5 @@ aoc2019-*.tar
 # Ignore escript executable
 /aoc2019
 
+# Ignore tmp files
+/tmp
