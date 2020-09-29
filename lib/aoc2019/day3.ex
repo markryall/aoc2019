@@ -2,7 +2,7 @@ defmodule Aoc2019.Day3 do
   def go() do
     {:ok, contents} = File.read("tmp/3.txt")
     lines = contents |> String.split("\n", trim: true)
-    IO.inspect(solve(Enum.at(lines, 0), Enum.at(lines, 1)))
+    IO.inspect(solve2(Enum.at(lines, 0), Enum.at(lines, 1)))
   end
 
   def solve(first, second) do
@@ -12,6 +12,19 @@ defmodule Aoc2019.Day3 do
     |> Enum.map(fn {x, y} -> abs(x) + abs(y) end)
     |> Enum.filter(fn x -> x > 0 end)
     |> Enum.min
+  end
+
+  def solve2(first, second) do
+    first_points = first |> instructions |> apply_instructions
+    second_points = second |> instructions |> apply_instructions
+    MapSet.intersection(Enum.into(first_points, MapSet.new), Enum.into(second_points, MapSet.new))
+    |> Enum.map(fn point -> calculate_steps(point, first_points, second_points) end)
+    |> Enum.filter(fn x -> x > 0 end)
+    |> Enum.min
+  end
+
+  def calculate_steps(point, first, second) do
+    Enum.find_index(first, fn item -> item == point end) + Enum.find_index(second, fn item -> item == point end) + 2
   end
 
   def instructions(line) do
