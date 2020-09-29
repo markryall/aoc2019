@@ -1,6 +1,6 @@
 defmodule Aoc2019.Day4 do
   def go() do
-    Enum.map(183564..657474, fn n -> n end)
+    183564..657474
     |> Enum.filter(&valid2/1)
     |> Enum.count
     |> IO.inspect
