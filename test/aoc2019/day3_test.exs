@@ -16,4 +16,14 @@ defmodule Aoc2019Test.Day3 do
     assert Aoc2019.Day3.points({"D", 1}, {0, 0}) == [{0, -1}]
     assert Aoc2019.Day3.points({"D", 2}, {0, 0}) == [{0, -1}, {0, -2}]
   end
+
+  test "applies instruction to determine new points" do
+    assert Aoc2019.Day3.apply_instruction([], {"R", 2}) == [{1, 0}, {2, 0}]
+    assert Aoc2019.Day3.apply_instruction([{-2, 0}], {"R", 2}) == [{-2, 0}, {-1, 0}, {0, 0}]
+  end
+
+  test "applies instructions to accumulate final points" do
+    assert Aoc2019.Day3.apply_instructions([{1, 0}], []) == [{1, 0}]
+    assert Aoc2019.Day3.apply_instructions([{-1, 0}, {-2, 0}], [{"R", 2}]) == [{-1, 0}, {-2, 0}, {-1, 0}, {0, 0}]
+  end
 end

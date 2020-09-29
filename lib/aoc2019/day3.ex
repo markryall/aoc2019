@@ -25,4 +25,20 @@ defmodule Aoc2019.Day3 do
       "D" -> Enum.map(1..magnitude, fn yoffset -> {x, y - yoffset} end)
     end
   end
+
+  def apply_instruction([], instruction) do
+    points(instruction, {0, 0})
+  end
+
+  def apply_instruction(points, instruction) do
+    points ++ points(instruction, List.last(points))
+  end
+
+  def apply_instructions(points, []) do
+    points
+  end
+
+  def apply_instructions(points, [instruction|rest]) do
+    apply_instructions(apply_instruction(points, instruction), rest)
+  end
 end
