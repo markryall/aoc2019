@@ -9,6 +9,8 @@ defmodule Aoc2019.Cli do
         Aoc2019.Day2.go
       "3" ->
         Aoc2019.Day3.go
+      "4" ->
+        Aoc2019.Day4.go
       _ ->
         IO.puts "haven't got to that yet sorry"
     end
